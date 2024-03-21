@@ -1,3 +1,1 @@
-#kdjfdkljfdkljdkljfd
-
-3DKDKDKKD
+print(333+333)
