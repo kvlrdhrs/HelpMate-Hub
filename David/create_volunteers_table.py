@@ -20,8 +20,8 @@ create_table = """
     phone VARCHAR(20) NOT NULL,
     city VARCHAR(100) NOT NULL,
     gender VARCHAR(20),
-    age SMALLINT,
-    info TEXT NOT NULL
+    birth_year SMALLINT,
+    info TEXT
     )
 """
 cursor.execute(create_table)
