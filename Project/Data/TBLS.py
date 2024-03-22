@@ -27,5 +27,20 @@ create_table = """
 """
 cursor.execute(create_table)
 
+cursor.execute("""DROP TABLE if exists volunteers""")
+create_table2 = """
+    CREATE TABLE volunteers(
+    id SERIAL PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    phone VARCHAR(100) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    gender VARCHAR(100),
+    age SMALLINT,
+    info TEXT NOT NULL
+    )
+"""
+cursor.execute(create_table2)
+
 cursor.close()
 connection.close()
