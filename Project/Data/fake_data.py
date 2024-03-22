@@ -32,14 +32,21 @@ for _ in range(num_records):
     age = fake.random_int(min=18, max=90)
     info = fake.text(max_nb_chars=200)
     
-    cursor.execute(
-        """
-        INSERT INTO looking_for_volunteers (full_name, email, phone, city, gender, age, info)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """,
-        (full_name, email, phone, city, gender, age, info)
-    )
+    # cursor.execute(
+    #     """
+    #     INSERT INTO looking_for_volunteers (full_name, email, phone, city, gender, age, info)
+    #     VALUES (%s, %s, %s, %s, %s, %s, %s)
+    #     """,
+    #     (full_name, email, phone, city, gender, age, info)
+    # )
 
+    # cursor.execute(
+    #     """
+    #     INSERT INTO volunteers (full_name, email, phone, city, gender, age, info)
+    #     VALUES (%s, %s, %s, %s, %s, %s, %s)
+    #     """,
+    #     (full_name, email, phone, city, gender, age, info)
+    # )
 # Close the connection
 cursor.close()
 conn.close()
