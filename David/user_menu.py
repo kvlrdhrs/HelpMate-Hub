@@ -13,7 +13,7 @@ connection = psycopg2.connect(**db_params)
 cursor = connection.cursor()
 
 
-def entrance_menu():
+def main_menu():
     print('****************************')
     print('Welcome to HelpMatch_Makers!')
     print('****************************\n')
@@ -38,34 +38,40 @@ def volunteer_recruiter_menu():
     recruiter_choice = input('>>>: ')
     return recruiter_choice
 
-def insert_into_volunteers_table(name, email, phone, city, gender, birth_year):
-    query = f"""INSERT INTO volunteers(name, email, phone, city, gender, birth_year)
-    VALUES ('{name}', '{email}', '{phone}', '{city}', '{gender}', {birth_year});"""
-    cursor.execute(query)
-    connection.commit()
-
-def insert_into_looking_for_volunteers(name, email, phone, city):
-    query = f"""INSERT INTO looking_for_volunteers(name, email, phone, city)
-    VALUES ('{name}', '{email}', '{phone}', '{city}');"""
-    cursor.execute(query)
-    connection.commit()
-
-def add_volunteer():
+def add_new_volunteer():
     print('Great that you want to be a volunteer!')
+    name = input('Please enter your full name: ')
+    email = input('Please enter your email address: ')
+    phone = input('Please enter your phone number: ')
+    city = input('Please enter the city you live in: ')
+    gender = input('Please enter the gender you identify as (Male, Female or Other): ')
+    birth_year = input('Please enter your year of birth: ')
+    info = input('Please specify the work you would like to do: ')
+    new_volunteer = members.Volunteer(name, email, phone, city, gender, birth_year, info)
+    new_volunteer.add()
+    # check if addition was successful
 
-
-
+def add_new_volunteer_seeker():
+    print('Great that you want to offer a volunteering opportunity!')
+    name = input('Please enter your name: ')
+    email = input('Please enter your email address: ')
+    phone = input('Please enter your phone number: ')
+    city = input('Please enter your city: ')
+    background_info = input('Please enter background info about you that might be relevant for the volunteer: ')
+    tasks = input('Please enter the tasks your seeking a volunteer for: ')
+    new_volunteer_seeker = members.VolunteerSeeker(name, email, phone, city, background_info, tasks)
+    new_volunteer_seeker.add()
 
 def help_match_makers():
     is_in_program = True
     while is_in_program:
-        entrance_choice = entrance_menu().upper()
+        entrance_choice = main_menu().upper()
         if entrance_choice == 'V':
             volunteer_choice = ''
             while volunteer_choice != 'U':
                 volunteer_choice = volunteer_menu().upper()
                 if volunteer_choice == 'A':
-                    pass
+                    add_new_volunteer()
                 elif volunteer_choice == 'S':
                     pass
                 elif volunteer_choice != 'U':
@@ -75,7 +81,7 @@ def help_match_makers():
             while recruiter_choice != 'U':
                 recruiter_choice = volunteer_recruiter_menu().upper()
                 if recruiter_choice == 'A':
-                    pass
+                    add_new_volunteer_seeker()
                 elif recruiter_choice == 'S':
                     pass
                 elif recruiter_choice != 'U':

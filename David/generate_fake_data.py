@@ -1,7 +1,6 @@
 from faker import Faker
 import random
 import psycopg2
-import user_menu
 
 connection = psycopg2.connect(
     host='localhost',
@@ -12,6 +11,18 @@ connection = psycopg2.connect(
 )
 
 cursor = connection.cursor()
+
+def insert_into_volunteers_table(name, email, phone, city, gender, birth_year):
+    query = f"""INSERT INTO volunteers(name, email, phone, city, gender, birth_year)
+    VALUES ('{name}', '{email}', '{phone}', '{city}', '{gender}', {birth_year});"""
+    cursor.execute(query)
+    connection.commit()
+
+def insert_into_looking_for_volunteers(name, email, phone, city):
+    query = f"""INSERT INTO looking_for_volunteers(name, email, phone, city)
+    VALUES ('{name}', '{email}', '{phone}', '{city}');"""
+    cursor.execute(query)
+    connection.commit()
 
 def insert_fake_volunteers(quantity):
     fake = Faker('en_GB')
@@ -30,7 +41,7 @@ def insert_fake_volunteers(quantity):
         phone = fake.phone_number()
         city = fake.city().replace("'", '"')
         birth_year = random.randint(1944,2008)
-        user_menu.insert_into_volunteers_table(name, email, phone, city, gender, birth_year)
+        insert_into_volunteers_table(name, email, phone, city, gender, birth_year)
 
 def insert_fake_volunteer_recruiters(quantity):
     fake = Faker('en_GB')
@@ -39,7 +50,7 @@ def insert_fake_volunteer_recruiters(quantity):
         email = fake.email()
         phone = fake.phone_number()
         city = fake.city().replace("'", '"')
-        user_menu.insert_into_looking_for_volunteers(name, email, phone, city)
+        insert_into_looking_for_volunteers(name, email, phone, city)
 
 insert_fake_volunteer_recruiters(100)
 insert_fake_volunteers(100)
