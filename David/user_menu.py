@@ -1,3 +1,18 @@
+import members
+import psycopg2
+
+db_params = {
+    "host": 'localhost',
+    "user": 'postgres',
+    "password": 'xo4MK99!ds',
+    "port": '5432',
+    "dbname": 'helpmatch_makers'
+}
+
+connection = psycopg2.connect(**db_params)
+cursor = connection.cursor()
+
+
 def entrance_menu():
     print('****************************')
     print('Welcome to HelpMatch_Makers!')
@@ -22,6 +37,23 @@ def volunteer_recruiter_menu():
     print('Please enter <U> to go one level up in the menu')
     recruiter_choice = input('>>>: ')
     return recruiter_choice
+
+def insert_into_volunteers_table(name, email, phone, city, gender, birth_year):
+    query = f"""INSERT INTO volunteers(name, email, phone, city, gender, birth_year)
+    VALUES ('{name}', '{email}', '{phone}', '{city}', '{gender}', {birth_year});"""
+    cursor.execute(query)
+    connection.commit()
+
+def insert_into_looking_for_volunteers(name, email, phone, city):
+    query = f"""INSERT INTO looking_for_volunteers(name, email, phone, city)
+    VALUES ('{name}', '{email}', '{phone}', '{city}');"""
+    cursor.execute(query)
+    connection.commit()
+
+def add_volunteer():
+    print('Great that you want to be a volunteer!')
+
+
 
 
 def help_match_makers():
@@ -54,4 +86,8 @@ def help_match_makers():
         else:
             print('\nYour input is invalid, please try again.\n')
 
-help_match_makers()
+if __name__ == '__main__':
+    help_match_makers()
+    if connection:
+        cursor.close()
+        connection.close()
