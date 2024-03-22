@@ -1,15 +1,15 @@
-# import psycopg2
+import psycopg2
 
-# conn = psycopg2.connect(
-#     host = 'localhost',
-#     port = '5432',
-#     user = 'postgres',
-#     password = '232323',
-#     dbname = 'restaurant_mm'
-# )
+conn = psycopg2.connect(
+    host = '127.0.0.1',
+    port = '5432',
+    user = 'postgres',
+    password = '232323',
+    dbname = 'helpmatch_maker'
+)
 
-# cur=conn.cursor()
-# conn.autocommit=True
+cur=conn.cursor()
+conn.autocommit=True
 
 # class MenuItem():
 #     def __init__(self, name, price):
@@ -90,8 +90,8 @@
 #         if continue_program.upper() != 'Y':
 #             break
 
-#     cur.close()
-#     conn.close()
+cur.close()
+conn.close()
 
 # if __name__ == "__main__":
 #     main()

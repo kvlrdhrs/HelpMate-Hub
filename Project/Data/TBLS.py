@@ -18,9 +18,9 @@ create_table = """
     id SERIAL PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    phone VARCHAR(20) NOT NULL,
+    phone VARCHAR(100) NOT NULL,
     city VARCHAR(100) NOT NULL,
-    gender VARCHAR(20),
+    gender VARCHAR(100),
     age SMALLINT,
     info TEXT NOT NULL
     )
