@@ -50,7 +50,7 @@ def insert_fake_volunteer_recruiters(quantity):
         email = fake.email()
         phone = fake.phone_number()
         city = fake.city()
-        insert_into_volunteers_table(full_name, email, phone, city)
+        insert_into_looking_for_volunteers(full_name, email, phone, city)
 
 insert_fake_volunteer_recruiters(100)
 
