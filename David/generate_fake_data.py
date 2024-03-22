@@ -12,9 +12,9 @@ connection = psycopg2.connect(
 
 cursor = connection.cursor()
 
-def insert_into_volunteers_table(full_name, email, phone, city, gender, birth_year):
-    query = f"""INSERT INTO volunteers(full_name, email, phone, city, gender, birth_year)
-    VALUES ('{full_name}', '{email}', '{phone}', '{city}', '{gender}', {birth_year});"""
+def insert_into_volunteers_table(name, email, phone, city, gender, birth_year):
+    query = f"""INSERT INTO volunteers(name, email, phone, city, gender, birth_year)
+    VALUES ('{name}', '{email}', '{phone}', '{city}', '{gender}', {birth_year});"""
     cursor.execute(query)
     connection.commit()
 
@@ -36,23 +36,24 @@ def insert_fake_volunteers(quantity):
         else:
             first_name = fake.first_name()
         last_name = fake.last_name()
-        full_name = f'{first_name} {last_name}'
+        name = f'{first_name} {last_name}'
         email = fake.email()
         phone = fake.phone_number()
         city = fake.city()
         birth_year = random.randint(1944,2008)
-        insert_into_volunteers_table(full_name, email, phone, city, gender, birth_year)
+        insert_into_volunteers_table(name, email, phone, city, gender, birth_year)
 
 def insert_fake_volunteer_recruiters(quantity):
     fake = Faker('en_GB')
     for number in range(quantity):
-        full_name = fake.name()
+        name = fake.name()
         email = fake.email()
         phone = fake.phone_number()
         city = fake.city()
-        insert_into_looking_for_volunteers(full_name, email, phone, city)
+        insert_into_looking_for_volunteers(name, email, phone, city)
 
-insert_fake_volunteer_recruiters(100)
+# insert_fake_volunteer_recruiters(100)
+# insert_fake_volunteers(100)
 
 
 # info
