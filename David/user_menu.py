@@ -48,8 +48,7 @@ def add_new_volunteer():
     birth_year = input('Please enter your year of birth: ')
     info = input('Please specify the work you would like to do: ')
     new_volunteer = members.Volunteer(name, email, phone, city, gender, birth_year, info)
-    new_volunteer.add()
-    # check if addition was successful
+    new_volunteer.add_and_check('volunteers')
 
 def add_new_volunteer_seeker():
     print('Great that you want to offer a volunteering opportunity!')
@@ -60,7 +59,8 @@ def add_new_volunteer_seeker():
     background_info = input('Please enter background info about you that might be relevant for the volunteer: ')
     tasks = input('Please enter the tasks your seeking a volunteer for: ')
     new_volunteer_seeker = members.VolunteerSeeker(name, email, phone, city, background_info, tasks)
-    new_volunteer_seeker.add()
+    new_volunteer_seeker.add_and_check('looking_for_volunteers')
+
 
 def help_match_makers():
     is_in_program = True
