@@ -18,7 +18,7 @@ create_table = """
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    phone VARCHAR(20) NOT NULL,
+    phone VARCHAR(100) NOT NULL,
     city VARCHAR(100) NOT NULL,
     background_info TEXT,
     tasks TEXT
@@ -30,13 +30,13 @@ cursor.execute("""DROP TABLE if exists volunteers""")
 create_table2 = """
     CREATE TABLE volunteers(
     id SERIAL PRIMARY KEY,
-    full_name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(100) NOT NULL,
     city VARCHAR(100) NOT NULL,
     gender VARCHAR(100),
     age SMALLINT,
-    info TEXT NOT NULL
+    info TEXT
     )
 """
 cursor.execute(create_table2)
