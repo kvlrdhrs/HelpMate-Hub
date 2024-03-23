@@ -7,7 +7,7 @@ connection = psycopg2.connect(
     port='5432',
     user='postgres',
     password='232323',
-    dbname='helpmatch_maker'
+    dbname='help_mm'
 )
 
 # Create a cursor object

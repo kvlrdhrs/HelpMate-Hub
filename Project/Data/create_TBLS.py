@@ -6,7 +6,7 @@ connection = psycopg2.connect(
     port='5432',
     user='postgres',
     password='232323',
-    dbname='helpmatch_maker'
+    dbname='help_mm'
 )
 
 cursor = connection.cursor()
@@ -14,7 +14,7 @@ connection.autocommit = True
 
 cursor.execute("""DROP TABLE if exists LF_volunteers""")
 create_table = """
-    CREATE TABLE looking_for_volunteers(
+    CREATE TABLE LF_volunteers(
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,

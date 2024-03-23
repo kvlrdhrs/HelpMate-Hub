@@ -10,8 +10,8 @@ connection = psycopg2.connect(
 cursor = connection.cursor()
 connection.autocommit = True
 
-cursor.execute("""DROP DATABASE if exists HelpMatch_Maker;""")
-cursor.execute("""CREATE DATABASE HelpMatch_Maker;""")
+cursor.execute("""DROP DATABASE if exists help_mm;""")
+cursor.execute("""CREATE DATABASE help_mm;""")
 
 cursor.close()
 connection.close()
