@@ -52,7 +52,7 @@ def volunteer_menu():
     return volunteer_choice
 
 def LFV_menu():
-    print('\nPlease enter <1> to be added as a volunteer recruiter to Help_MatchMaker')
+    print('\nPlease enter <1> to be added as a volunteer recruiter')
     print('Please enter <2> to find for volunteers in Help_MatchMaker')
     print('Please enter <3> to go one level up in the menu')
     recruiter_choice = input('>>>: ')
@@ -71,13 +71,13 @@ def add_new_volunteer():
     print('You are added to a volunteer list')
 
 def add_new_LF_volunteers():
-    print('Great that you want to be a volunteer!')
+    print('Great that you want to offer a volunteering opportunity!')
     name = input('Please enter your name: ')
     email = input('Please enter your email address: ')
     phone = input('Please enter your phone number: ')
     city = input('Please enter the city you live in: ')
     age = input('Please enter your age: ')
-    info = input('Please specify the work you would like to do: ')
+    info = input('Please enter the tasks your seeking a volunteer for: ')
     new_volunteer = Menu(name, email, phone, city, age, info)
     new_volunteer.insert("lf_volunteers")
     print('You are added to a lf_volunteers list')
@@ -101,7 +101,7 @@ def main():
         elif user_choise == '2':
             recruiter_choice = LFV_menu()
             if recruiter_choice == '1':
-                pass
+                add_new_LF_volunteers()
             elif recruiter_choice == '2':
                 pass
             elif recruiter_choice == '3':
