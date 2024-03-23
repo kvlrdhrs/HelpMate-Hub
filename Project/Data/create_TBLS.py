@@ -20,8 +20,8 @@ create_table = """
     email VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(100) NOT NULL,
     city VARCHAR(100) NOT NULL,
-    background_info TEXT,
-    tasks TEXT
+    age SMALLINT,
+    info TEXT
     )
 """
 cursor.execute(create_table)
@@ -34,7 +34,6 @@ create_table2 = """
     email VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(100) NOT NULL,
     city VARCHAR(100) NOT NULL,
-    gender VARCHAR(100),
     age SMALLINT,
     info TEXT
     )

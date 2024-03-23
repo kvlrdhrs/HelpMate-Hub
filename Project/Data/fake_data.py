@@ -2,19 +2,19 @@ import psycopg2
 from faker import Faker
 
 # Establish a connection to the database
-conn = psycopg2.connect(
-    host = '127.0.0.1',
-    port = '5432',
-    user = 'postgres',
-    password = '232323',
-    dbname = 'helpmatch_maker'
+connection = psycopg2.connect(
+    host='localhost',
+    port='5432',
+    user='postgres',
+    password='232323',
+    dbname='helpmatch_maker'
 )
 
 # Create a cursor object
-cursor = conn.cursor()
+cursor = connection.cursor()
 
 # Set the connection to automatically commit transactions
-conn.autocommit = True
+connection.autocommit = True
 
 # Create an instance of Faker
 fake = Faker()
@@ -28,29 +28,26 @@ for _ in range(num_records):
     email = fake.email()
     phone = fake.phone_number()
     city = fake.city()
-    gender = fake.random_element(elements=('Male', 'Female', 'Other'))
     age = fake.random_int(min=18, max=90)
     info = fake.text(max_nb_chars=200)
-    background_info = fake.text(max_nb_chars=200)
-    tasks = fake.text(max_nb_chars=200)
     
     cursor.execute(
         """
-        INSERT INTO looking_for_volunteers (name, email, phone, city, tasks)
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO looking_for_volunteers (name, email, phone, city, age, info)
+        VALUES (%s, %s, %s, %s, %s, %s)
         """,
-        (name, email, phone, city, tasks)
+        (name, email, phone, city, age, info)
     )
 
     cursor.execute(
         """
-        INSERT INTO volunteers (name, email, phone, city, gender, age, info)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO volunteers (name, email, phone, city, age, info)
+        VALUES (%s, %s, %s, %s, %s, %s)
         """,
-        (name, email, phone, city, gender, age, info)
+        (name, email, phone, city, age, info)
     )
 
 
 # Close the connection
 cursor.close()
-conn.close()
+connection.close()
