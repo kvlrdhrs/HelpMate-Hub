@@ -33,7 +33,7 @@ for _ in range(num_records):
     
     cursor.execute(
         """
-        INSERT INTO looking_for_volunteers (name, email, phone, city, age, info)
+        INSERT INTO LF_volunteers (name, email, phone, city, age, info)
         VALUES (%s, %s, %s, %s, %s, %s)
         """,
         (name, email, phone, city, age, info)

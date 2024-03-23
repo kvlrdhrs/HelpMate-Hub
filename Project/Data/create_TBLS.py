@@ -12,7 +12,7 @@ connection = psycopg2.connect(
 cursor = connection.cursor()
 connection.autocommit = True
 
-cursor.execute("""DROP TABLE if exists looking_for_volunteers""")
+cursor.execute("""DROP TABLE if exists LF_volunteers""")
 create_table = """
     CREATE TABLE looking_for_volunteers(
     id SERIAL PRIMARY KEY,

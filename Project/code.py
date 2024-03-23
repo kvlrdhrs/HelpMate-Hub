@@ -13,28 +13,22 @@ connection.autocommit=True
 
 # creating menu to insert, delete, update
 class Menu():
-    def __init__(self, name, price):
+    def __init__(self, name, email, phone, city, age, info):
         self.name = name
-        self.price = price
+        self.email = email
+        self.phone = phone
+        self.city = city
+        self.age = age
+        self.info = info
+
+    def insert(self, table_name):
+        cursor.execute(f"""
+        INSERT INTO {table_name} (name, email, phone, city, age, info)
+        VALUES (%s, %s, %s, %s, %s, %s)""",
+        (self.name, self.email, self.phone, self.city, self.age, self.info)
+        )
 
 
-    def save(self):
-        cur.execute("""INSERT INTO menu_items (item_name, item_price) values(%s, %s);""", (self.name, self.price))
-
-    def delete (self):
-        cur.execute("""DELETE FROM menu_items WHERE item_name = %s and item_price = %s""", (self.name, self.price))
-
-
-    def update(self, new_name, new_price):
-        cur.execute("""UPDATE menu_items SET item_name = %s, item_price = %s where item_name = %s""", (new_name, new_price, self.name))
-        self.name = new_name
-        self.price = new_price
-
-
-# item = MenuItem('Burger', 35)
-# item.save()
-# item.delete()
-# item.update('Veggie Burger', 37)
 
 
 cursor.close()
