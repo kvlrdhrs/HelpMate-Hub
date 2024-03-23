@@ -15,6 +15,29 @@ class Member:
         self.phone = phone
         self.city = city
 
+    def email_in_table(self, table):
+        try:
+            connection = psycopg2.connect(**db_params)
+            cursor = connection.cursor()
+            query = f"""SELECT COUNT(email) FROM {table} WHERE email = '{self.email}';"""
+            cursor.execute(query)
+            result = cursor.fetchall()  # Is a tuple with 1 element (the count), inside a list with 1 element (the tuple)
+        except (Exception, psycopg2.Error) as error:
+            print(f"Error connecting to the database: {error}")
+        finally:
+            if connection:
+                cursor.close()
+                connection.close()
+                return result[0][0]
+
+    def add_and_check(self, table):
+        if self.email_in_table(table) == 0:
+            self.add()
+            if self.email_in_table(table) == 1:
+                print('You have been added successfully.')
+        elif self.email_in_table(table) == 1:
+            print('Your email address already exists in the table!')
+
 
 class Volunteer(Member):
     def __init__(self, name, email, phone, city, gender, birth_year, info):
@@ -63,21 +86,8 @@ class VolunteerSeeker(Member):
                 connection.close()
 
 if __name__ == '__main__':
-    volunteer_1 = Volunteer('David', 'davidsmits@aol.nl', '053-3849149', 'Rehovot', 'Male', 1978, "I like to work with children or with disadvantaged groups")
-    print(volunteer_1.name)
-    print(volunteer_1.email)
-    print(volunteer_1.phone)
-    print(volunteer_1.city)
-    print(volunteer_1.gender)
-    print(volunteer_1.birth_year)
-    print(volunteer_1.info)
-    volunteer_1.add()
+    volunteer_1 = Volunteer('Manon', 'manonnie@aol.nl', '06-12345678', 'The Hague', 'Female', 1981, "I love to do crafts with children.")
+    volunteer_1.add_and_check('volunteers')
 
-    volunteer_seeker_1 = VolunteerSeeker('Service Civil International', 'help@workcamps.sci.ngo', '+32 26490738', 'Antwerp', 'Organises international voluntary workcamps in order to promote a culture of peace', 'Organising a summercamp for children of refugees')
-    print(volunteer_seeker_1.name)
-    print(volunteer_seeker_1.email)
-    print(volunteer_seeker_1.phone)
-    print(volunteer_seeker_1.city)
-    print(volunteer_seeker_1.background_info)
-    print(volunteer_seeker_1.tasks)
-    volunteer_seeker_1.add()
+    volunteer_seeker_1 = VolunteerSeeker('Kieke', 'info@mocschilderswijk', '+31 707371356', 'The Hague', 'A meeting place for people with different cultural backgrounds.', 'Teaching Dutch to migrants.')
+    volunteer_seeker_1.add_and_check('looking_for_volunteers')
