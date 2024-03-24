@@ -11,7 +11,7 @@ connection = psycopg2.connect(
 cursor=connection.cursor()
 connection.autocommit=True
 
-# creating funcionality to insert, delete and update data
+# creating funcionality to insert, delete and search data
 class Menu():
     def __init__(self, name, email, phone, city, age, info):
         self.name = name
