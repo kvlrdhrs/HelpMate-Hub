@@ -32,6 +32,22 @@ class Menu():
         DELETE FROM {table_name} WHERE email = %s""",
         (self.email))
 
+    def search(self, table_name, city=None, keyword=None):
+        conditions = []
+        params = []
+        
+        if city is not None:
+            conditions.append("city = %s")
+            params.append(city)
+        if keyword is not None:
+            conditions.append("info ILIKE %s")
+            params.append('%' + keyword + '%')
+        
+        query = "SELECT * FROM {} WHERE ".format(table_name) + " AND ".join(conditions)
+        self.cursor.execute(query, tuple(params))
+        result = self.cursor.fetchall()
+        return result
+
 #creating user_menu
 
 def show_welcome_menu():
@@ -57,6 +73,19 @@ def LFV_menu():
     print('Please enter <3> to go one level up in the menu')
     recruiter_choice = input('>>>: ')
     return recruiter_choice
+
+def search_menu():
+    while True:
+        user_choice = input('''Would you like to search by:\n
+        City    : enter <1>
+        Keyword : enter <2>
+        Both    : enter <3>
+        Or go up: enter <4>
+        >>>: ''')
+        if user_choice in ['1', '2', '3', '4']:
+            return user_choice
+        else:
+            print("Invalid choice. Please try again.")
 
 def add_new_volunteer():
     print('Great that you want to be a volunteer!')
@@ -85,41 +114,25 @@ def add_new_LF_volunteers():
 
 def main():
     while True:
-        user_choise = show_welcome_menu()
-        if user_choise == '1':
-            volunteer_choice = volunteer_menu()
-            if volunteer_choice == '1':
-                add_new_volunteer()
-            elif volunteer_choice == '2':
-                pass
-            elif volunteer_choice == '3':
-                user_choise = show_welcome_menu()
+        user_choice = show_welcome_menu()
+        if user_choice in ['1', '2']:
+            if user_choice == '1':
+                choice = volunteer_menu()
             else:
-                    break
+                choice = LFV_menu()
 
-
-        elif user_choise == '2':
-            recruiter_choice = LFV_menu()
-            if recruiter_choice == '1':
-                add_new_LF_volunteers()
-            elif recruiter_choice == '2':
-                pass
-            elif recruiter_choice == '3':
-                user_choise = show_welcome_menu()
+            if choice == '1':
+                add_new_volunteer() if user_choice == '1' else add_new_LF_volunteers()
+            elif choice == '2':
+                search_menu()
+            elif choice == '3':
+                continue
             else:
-                pass
-
-
-        elif user_choise == '3':
                 break
+        elif user_choice == '3':
+            break
         else:
             print("Invalid choice. Please try again.")
-
-
-
-        # continue_program = input("Do you want to continue? (Y/N): ")
-        # if continue_program.upper() != 'Y':
-        #     break
 
 
 if __name__ == '__main__':
