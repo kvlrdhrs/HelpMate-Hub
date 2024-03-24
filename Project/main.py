@@ -32,7 +32,8 @@ class Menu():
         DELETE FROM {table_name} WHERE email = %s""",
         (self.email))
 
-    def search(self, table_name, city=None, keyword=None):
+    @staticmethod
+    def search(table_name, city=None, keyword=None):
         conditions = []
         params = []
         
@@ -44,8 +45,8 @@ class Menu():
             params.append('%' + keyword + '%')
         
         query = "SELECT * FROM {} WHERE ".format(table_name) + " AND ".join(conditions)
-        self.cursor.execute(query, tuple(params))
-        result = self.cursor.fetchall()
+        cursor.execute(query, tuple(params))
+        result = cursor.fetchall()
         return result
 
 #creating user_menu
@@ -124,7 +125,28 @@ def main():
             if choice == '1':
                 add_new_volunteer() if user_choice == '1' else add_new_LF_volunteers()
             elif choice == '2':
-                search_menu()
+                search_choice = search_menu()
+                if search_choice == '1':
+                    city = input("Enter city: ")
+                    results = Menu.search("volunteers", city=city)  # Change here
+                    print("Search results:")
+                    for result in results:
+                        print(result)
+                elif search_choice == '2':
+                    keyword = input("Enter keyword: ")
+                    results = Menu.search("volunteers", keyword=keyword)  # Change here
+                    print("Search results:")
+                    for result in results:
+                        print(result)
+                elif search_choice == '3':
+                    city = input("Enter city: ")
+                    keyword = input("Enter keyword: ")
+                    results = Menu.search("volunteers", city=city, keyword=keyword)  # Change here
+                    print("Search results:")
+                    for result in results:
+                        print(result)
+                elif search_choice == '4':
+                    continue
             elif choice == '3':
                 continue
             else:
